@@ -7,10 +7,16 @@
     <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div>
-            <h1>web form page</h1>
-        </div>
-    </form>
+     <form id="form1" runat="server">  
+        <div>  
+            <asp:Label ID="labelId" runat="server">User Name</asp:Label>  
+<asp:TextBox ID="UserName" runat="server" ToolTip="Enter User Name"></asp:TextBox>  
+        </div>  
+        <p>  
+        <asp:Button ID="SubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click" />  
+        </p>  
+        <br />                   
+    </form>  
+     <asp:Label ID="userInput" runat="server"></asp:Label>
 </body>
 </html>
