@@ -61,4 +61,3 @@ jobs:
           ftp-username: devwebtest\$devwebtest
           ftp-password: ${{ secrets.FTP_PASSWORD }}
           local-dir: D:/webform-dev2/
-          remote-dir: /site/wwwroot/webform-dev2/
