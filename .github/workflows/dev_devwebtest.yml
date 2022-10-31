@@ -57,7 +57,9 @@ jobs:
       - name: Sync Files
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with: 
-          ftp-server: ftps://waws-prod-dm1-225.ftp.azurewebsites.windows.net/site/wwwroot
-          ftp-username: devwebtest\$devwebtest
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: D:/webform-dev2/
+           server: waws-prod-dm1-225.ftp.azurewebsites.windows.net
+           username: devwebtest\$devwebtest
+           password: ${{ secrets.FTP_PASSWORD }}
+           protocol: ftps
+           local-dir: D:/webform-dev2/
+           server-dir: /site/wwwroot/webform-dev2/
