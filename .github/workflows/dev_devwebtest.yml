@@ -26,13 +26,13 @@ jobs:
         run: nuget restore
 
       - name: Publish to folder
-        run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
+        run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\webform-dev\"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: ASP-app
-          path: '/published/**'
+          name: webform-dev
+          path: '/webform-dev/**'
 
   deploy:
     runs-on: windows-latest
@@ -45,13 +45,21 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: ASP-app
+          name: webform-dev
+          path: '/webform-dev/'
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+      - name: Azure login    
+        uses: azure/login@v1
         with:
-          app-name: 'devwebtest'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_20181B55572F4A4B8AC301E896344622 }}
-          package: .
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true  
+          
+      - name: Sync Files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with: 
+          server: waws-prod-dm1-225.ftp.azurewebsites.windows.net
+          username: devwebtest\$devwebtest
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: D:/webform-dev/
+          server-dir: /site/wwwroot/webform-dev/
