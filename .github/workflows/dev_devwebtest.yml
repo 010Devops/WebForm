@@ -61,5 +61,5 @@ jobs:
           username: devwebtest\$devwebtest
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
-          local-dir: D:/webform-dev/
+          local-dir: D:/webform-dev1/
           server-dir: /site/wwwroot/webform-dev1/
